@@ -14,4 +14,13 @@ class SujetForumDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = sujets_forum.objects.all()
     serializer_class = SujetForumSerializer
     lookup_field = 'pk'
+
+class PublicationList(generics.ListCreateAPIView):
+    queryset = publications.objects.all()
+    serializer_class = PublicationSerializer
+
+class PublicationDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = publications.objects.all()
+    serializer_class = PublicationSerializer
+    lookup_field = 'pk'
     
