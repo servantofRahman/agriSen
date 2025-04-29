@@ -62,7 +62,7 @@ class agriculteurs(models.Model):
     region = models.CharField(max_length = 100)
     commune = models.CharField(max_length = 10)
     telephone = models.CharField(max_length = 20)
-    photo_profil = models.FileField(upload_to = "images/")
+    photo_profil = models.FileField(upload_to = "photo_profile/")
     bio = models.TextField()
 
 class cultures(models.Model):
