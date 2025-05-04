@@ -19,6 +19,15 @@ class utilisateurs(AbstractUser):
 class sujets_forum(models.Model):
     sujet_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     titre = models.CharField(max_lenght = 255)
+
+class utilisateurs(AbstractUser):
+    choix = [('agriculteur', 'Agriculteur'), ('syndic', 'Syndic'), ('utilisateur', 'Utilisateur'), ('admin', 'Admin')]
+    type_utilisateur = models.CharField(max_length = 100, choices = choix, default = 'utilisateur')
+
+class sujets_forum(models.Model):
+    sujet_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
+    titre = models.CharField(max_length=255)
+
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add= True)
     est_prive = models.BooleanField(default = False)
@@ -35,7 +44,11 @@ class publications(models.Model):
     publication_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
     contenu = models.TextField()
+
     image_url = models.CharField(max_length = 255)
+
+    image = models.FileField(upload_to="publication-images/")
+
     date_publication = models.DateTimeField(auto_now_add = True)
     region = models.CharField(max_length = 100)
     culture_associee = models.CharField(max_length = 100)
@@ -49,7 +62,11 @@ class commentaires(models.Model):
 
 class messages_privées(models.Model):
     message_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
+
     expediteur_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
+
+    expediteur_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE, related_name="expediteur")
+
     destinataire_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
     contenu = models.TextField()
     date_envoi = models.DateTimeField(auto_now_add = True)
@@ -62,7 +79,9 @@ class agriculteurs(models.Model):
     region = models.CharField(max_length = 100)
     commune = models.CharField(max_length = 10)
     telephone = models.CharField(max_length = 20)
-    photo_profil = models.ImageField(upload_to = "images/")
+
+    photo_profil = models.FileField(upload_to = "photo_profile/")
+
     bio = models.TextField()
 
 class cultures(models.Model):
@@ -97,5 +116,8 @@ class ventes (models.Model):
     stock_id = models.ForeignKey(stocks, on_delete = models.CASCADE)
     quantite_vendue = models.IntegerField()
     date_vente = models.DateTimeField(auto_now_add = True)
+
     acheteur_id = models.ForeignKey(utilisateurs, on_delete = True)
+    acheteur_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
+
 
