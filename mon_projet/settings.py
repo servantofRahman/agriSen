@@ -95,7 +95,7 @@ ASGI_APPLICATION = 'mon_projet.asgi.application' # on va utiliser ceci car on tr
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'n0reyni_backup',
+        'NAME': 'n0reyni_agrisen',
         'USER': 'n0reyni',
         'PASSWORD': 'LaisserPasser',
         'HOST': 'mysql-n0reyni.alwaysdata.net', 

@@ -3,15 +3,6 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-
-#class utilisateurs(models.Model)
-    # user_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-    # nom = models.CharField(max_length = 100)
-    # prenom = models.CharField(max_length = 100)
-    # email = models.EmailField(max_length = 100, unique = True)
-    # mot_de_passe = models
-
-
 class utilisateurs(AbstractUser):
     choix = [('agriculteur', 'Agriculteur'), ('syndic', 'Syndic'), ('utilisateur', 'Utilisateur'), ('admin', 'Admin')]
     type_utilisateur = models.CharField(max_length = 100, choices = choix, default = 'utilisateur')
@@ -22,7 +13,6 @@ class sujets_forum(models.Model):
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add= True)
     est_prive = models.BooleanField(default = False)
-
 
 class messages_forum(models.Model):
     message_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
@@ -35,7 +25,7 @@ class publications(models.Model):
     publication_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
     contenu = models.TextField()
-    image_url = models.CharField(max_length = 255)
+    image = models.FileField(upload_to="publication-images/")
     date_publication = models.DateTimeField(auto_now_add = True)
     region = models.CharField(max_length = 100)
     culture_associee = models.CharField(max_length = 100)
@@ -55,14 +45,13 @@ class messages_privées(models.Model):
     date_envoi = models.DateTimeField(auto_now_add = True)
     lu = models.BooleanField(default = False)
 
-
 class agriculteurs(models.Model):
     agriculteur_id = models.UUIDField(primary_key = True)
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
     region = models.CharField(max_length = 100)
     commune = models.CharField(max_length = 10)
     telephone = models.CharField(max_length = 20)
-    photo_profil = models.FileField(upload_to = "images/")
+    photo_profil = models.FileField(upload_to = "photo_profile/")
     bio = models.TextField()
 
 class cultures(models.Model):
@@ -90,7 +79,6 @@ class stocks (models.Model):
     unite = models.CharField(max_length = 20)
     prix_unitaire = models.IntegerField()
     date_ajout = models.DateTimeField(auto_now_add = True)
-
 
 class ventes (models.Model):
     vente_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
