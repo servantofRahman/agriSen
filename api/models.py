@@ -16,10 +16,6 @@ class utilisateurs(AbstractUser):
     choix = [('agriculteur', 'Agriculteur'), ('syndic', 'Syndic'), ('utilisateur', 'Utilisateur'), ('admin', 'Admin')]
     type_utilisateur = models.CharField(max_length = 100, choices = choix, default = choix[3])
 
-class sujets_forum(models.Model):
-    sujet_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-    titre = models.CharField(max_lenght = 255)
-
 class utilisateurs(AbstractUser):
     choix = [('agriculteur', 'Agriculteur'), ('syndic', 'Syndic'), ('utilisateur', 'Utilisateur'), ('admin', 'Admin')]
     type_utilisateur = models.CharField(max_length = 100, choices = choix, default = 'utilisateur')
@@ -60,10 +56,8 @@ class commentaires(models.Model):
     contenu = models.TextField()
     date_commentaire = models.DateTimeField(auto_now_add = True)
 
-class messages_privées(models.Model):
+class messages_privees(models.Model):
     message_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-
-    expediteur_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
 
     expediteur_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE, related_name="expediteur")
 
