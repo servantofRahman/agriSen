@@ -5,7 +5,7 @@ from django.core.asgi import get_asgi_application
 from channels.security.websocket import AllowedHostsOriginValidator
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "deepseek.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mon_projet.settings")
 django.setup()
 
 # from .middleware import JWTAuthMiddleware  
