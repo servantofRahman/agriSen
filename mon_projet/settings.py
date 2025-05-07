@@ -156,12 +156,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-## Channels Configuration
+# Channels Configuration
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": ["rediss://red-d0dbsepr0fns73930qg0:UZAvRZMAM7OfmmYlpvthuwSbMWRYFcEO@oregon-keyvalue.render.com:6379"],
         },
     },
 }
