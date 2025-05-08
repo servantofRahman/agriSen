@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from . import settings
+from django.conf import settings #J'ai enlevé le from . import settings car le dossier django.conf n'est pas dans le répertoire courant à celui où on est présentement
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),

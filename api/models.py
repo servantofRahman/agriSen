@@ -43,6 +43,7 @@ class messages_privees(models.Model):
     contenu = models.TextField()
     date_envoi = models.DateTimeField(auto_now_add = True)
     lu = models.BooleanField(default = False)
+    audio = models.FileField(upload_to='messages_audio/', null = True, blank = True)
 
 class agriculteurs(models.Model):
     agriculteur_id = models.UUIDField(primary_key = True)
