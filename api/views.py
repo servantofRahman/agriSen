@@ -35,11 +35,11 @@ class CommentairesRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIVie
 
 class Messages_priveesListCreateView(generics.ListCreateAPIView):
     queryset = messages_privees.objects.all()
-    serializer_class = Messages_priveesSerializer
+    serializer_class = Message_priveesSerializer
 
 class Messages_priveesRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = messages_privees.objects.all()
-    serializer_class = Messages_priveesSerializer
+    serializer_class = Message_priveesSerializer
     lookup_field = 'pk'
 
 class Messages_forumListCreateView(generics.ListCreateAPIView):
