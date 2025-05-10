@@ -6,11 +6,30 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class SujetForumSerializer(serializers.ModelSerializer):
+    participants = serializers.ListField(
+        child=serializers.EmailField(),
+        write_only=True
+    )
+    participant_emails = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = sujets_forum
-        fields = ['sujet_id', 'titre', 'user_id', 'participants', 'date_creation', 'est_prive']
+        fields = ['sujet_id', 'titre', 'user_id', 'participants', 'participant_emails', 'date_creation', 'est_prive']
+
+    def create(self, validated_data):
+        emails = validated_data.pop('participants')
+        users = get_user_model().objects.filter(email__in=emails)
+        sujet = sujets_forum.objects.create(**validated_data)
+        sujet.participants.set(users)
+        return sujet
+
+    def get_participant_emails(self, obj):
+        return [user.email for user in obj.participants.all()]
 
 class PublicationSerializer(serializers.ModelSerializer):
     class Meta:

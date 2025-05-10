@@ -8,6 +8,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Create your views here.
 class LoginView(APIView):
@@ -50,17 +52,17 @@ class RegisterView(APIView):
         if not all([first_name, last_name, email, username, password, type_utilisateur]):
             return Response({"error": "All fields are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        valid_roles = [choice[0] for choice in Utilisateur.CHOIX]
+        valid_roles = [choice[0] for choice in utilisateurs.choix]
         if type_utilisateur not in valid_roles:
             return Response({"error": f"Invalid user type. Must be one of: {', '.join(valid_roles)}"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if Utilisateur.objects.filter(username=username).exists():
+        if utilisateurs.objects.filter(username=username).exists():
             return Response({"error": "Username already taken."}, status=status.HTTP_400_BAD_REQUEST)
 
-        if Utilisateur.objects.filter(email=email).exists():
+        if utilisateurs.objects.filter(email=email).exists():
             return Response({"error": "Email already exists."}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = Utilisateur.objects.create_user(
+        user = utilisateurs.objects.create_user(
             first_name=first_name,
             last_name=last_name,
             email=email,
@@ -79,19 +81,31 @@ class RegisterView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 class SujetForumList(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = sujets_forum.objects.all()
     serializer_class = SujetForumSerializer
 
 class SujetForumDetails(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = sujets_forum.objects.all()
     serializer_class = SujetForumSerializer
     lookup_field = 'pk'
 
 class PublicationList(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = publications.objects.all()
     serializer_class = PublicationSerializer
 
 class PublicationDetails(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = publications.objects.all()
     serializer_class = PublicationSerializer
     lookup_field = 'pk'
