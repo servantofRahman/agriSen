@@ -19,8 +19,8 @@ class SujetForumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = sujets_forum
-        fields = ['sujet_id', 'titre', 'user_id', 'participants', 'participant_emails', 'date_creation', 'est_prive']
-
+        fields = ['sujet_id', 'titre', 'participants', 'participant_emails', 'date_creation', 'est_prive']
+        read_only_fields = ['user_id']
     def create(self, validated_data):
         emails = validated_data.pop('participants')
         users = get_user_model().objects.filter(email__in=emails)

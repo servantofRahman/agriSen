@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from rest_framework import serializers
 from rest_framework import generics
 from .serializers import *
@@ -83,9 +84,16 @@ class RegisterView(APIView):
 class SujetForumList(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-
-    queryset = sujets_forum.objects.all()
     serializer_class = SujetForumSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return sujets_forum.objects.filter(
+            Q(user_id=user.id) | Q(participants=user)
+        ).distinct()
+
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.user)
 
 class SujetForumDetails(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
