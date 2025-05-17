@@ -19,7 +19,7 @@ class messages_forum(models.Model):
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE, null=True, blank=True)
     contenu = models.TextField()
     date_message = models.DateTimeField(auto_now_add = True)
-
+    
 class publications(models.Model):
     publication_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     user_id = models.ForeignKey(utilisateurs, on_delete = models.CASCADE)
