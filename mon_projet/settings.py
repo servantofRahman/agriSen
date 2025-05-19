@@ -24,10 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&3lh^7*wfx83t+yx_+c+zo4(#6)2q!lb+-_r=jys%h)03-)#t!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -60,7 +59,30 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
+#CORS_ALLOWED_ORIGINS = [
+#    "http://127.0.0.1:3000",
+#    "http://localhost:3000",
+#]
+CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOW_CREDENTIALS = True
+
+# JWT CONFIG
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 
 ROOT_URLCONF = 'mon_projet.urls'
 
@@ -167,5 +189,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-CORS_ALLOW_ALL_ORIGINS = True
