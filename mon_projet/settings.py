@@ -179,20 +179,20 @@ MEDIA_URL = '/media/'
 
 
 # Channels Configuration
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": ["rediss://red-d0dbsepr0fns73930qg0:UZAvRZMAM7OfmmYlpvthuwSbMWRYFcEO@oregon-keyvalue.render.com:6379"],
-#         },
-#     },
-# }
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [('localhost', 6379)],
+            "hosts": ["rediss://red-d0dbsepr0fns73930qg0:UZAvRZMAM7OfmmYlpvthuwSbMWRYFcEO@oregon-keyvalue.render.com:6379"],
         },
     },
 }
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [('localhost', 6379)],
+#         },
+#     },
+# }
