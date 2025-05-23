@@ -113,29 +113,14 @@ ASGI_APPLICATION = 'mon_projet.asgi.application' # on va utiliser ceci car on tr
 #    }
 #}
 
-# La nouvelle base de données
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'n0reyni_agrisen',
-#         'USER': 'n0reyni',
-#         'PASSWORD': 'LaisserPasser',
-#         'HOST': 'mysql-n0reyni.alwaysdata.net', 
-#         'PORT': '3306', 
-#         'OPTIONS': {
-#             'charset': 'utf8mb4',
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#         },
-#     }
-# }
-
+#La nouvelle base de données
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'agrisen_prod',
-        'USER': 'noreyni',
-        'PASSWORD': 'passer123',
-        'HOST': 'localhost', 
+        'NAME': 'n0reyni_agrisen_prod',
+        'USER': 'n0reyni',
+        'PASSWORD': 'LaisserPasser',
+        'HOST': 'mysql-n0reyni.alwaysdata.net', 
         'PORT': '3306', 
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -143,6 +128,7 @@ DATABASES = {
         },
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
