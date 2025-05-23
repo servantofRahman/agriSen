@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&3lh^7*wfx83t+yx_+c+zo4(#6)2q!lb+-_r=jys%h)03-)#t!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -114,13 +114,28 @@ ASGI_APPLICATION = 'mon_projet.asgi.application' # on va utiliser ceci car on tr
 #}
 
 # La nouvelle base de données
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'n0reyni_agrisen',
+#         'USER': 'n0reyni',
+#         'PASSWORD': 'LaisserPasser',
+#         'HOST': 'mysql-n0reyni.alwaysdata.net', 
+#         'PORT': '3306', 
+#         'OPTIONS': {
+#             'charset': 'utf8mb4',
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         },
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'n0reyni_agrisen',
-        'USER': 'n0reyni',
-        'PASSWORD': 'LaisserPasser',
-        'HOST': 'mysql-n0reyni.alwaysdata.net', 
+        'NAME': 'agrisen_prod',
+        'USER': 'noreyni',
+        'PASSWORD': 'passer123',
+        'HOST': 'localhost', 
         'PORT': '3306', 
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -128,7 +143,6 @@ DATABASES = {
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -179,11 +193,20 @@ MEDIA_URL = '/media/'
 
 
 # Channels Configuration
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": ["rediss://red-d0dbsepr0fns73930qg0:UZAvRZMAM7OfmmYlpvthuwSbMWRYFcEO@oregon-keyvalue.render.com:6379"],
+#         },
+#     },
+# }
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": ["rediss://red-d0dbsepr0fns73930qg0:UZAvRZMAM7OfmmYlpvthuwSbMWRYFcEO@oregon-keyvalue.render.com:6379"],
+            "hosts": [('localhost', 6379)],
         },
     },
 }
