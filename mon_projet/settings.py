@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&3lh^7*wfx83t+yx_+c+zo4(#6)2q!lb+-_r=jys%h)03-)#t!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -113,11 +113,11 @@ ASGI_APPLICATION = 'mon_projet.asgi.application' # on va utiliser ceci car on tr
 #    }
 #}
 
-# La nouvelle base de données
+#La nouvelle base de données
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'n0reyni_agrisen',
+        'NAME': 'n0reyni_agrisen_prod',
         'USER': 'n0reyni',
         'PASSWORD': 'LaisserPasser',
         'HOST': 'mysql-n0reyni.alwaysdata.net', 
@@ -187,3 +187,12 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [('localhost', 6379)],
+#         },
+#     },
+# }
